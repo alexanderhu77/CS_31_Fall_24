@@ -1,0 +1,42 @@
+Some obstacles included finding a logical algorithm that was able to see if a poll data string has correct syntax and when to return 2 if a state predicts 0 electoral votes. Both algorithms required special care for fine details that made them difficult.
+
+===pseudocode===
+The first function is isValidUppercaseStateCode, which is given in the spec
+
+For hasRightSyntax, the function iterates through each letter of the string and does the following:
+
+iterates through each char in the string and for each state prediction 
+	return false if first letter is not a letter
+	checks if there is a number afterwards. Return false if not
+	Check if the state code exists and is valid after turning to uppercase using isValidUppercaseStateCode
+	Repeat the process for the next state prediction
+
+For computeVotes, the function does the following
+	call hasRightSyntax and return 1 if the poll data string is not valid
+	if the parameter is not a letter then return 3
+	Go through the string and if a 0 is spotted, check if the next digit is 0 or if it is sandwiched between two letters.
+		Return 2 if either is true
+	If none of the above happens, go through the string and tally up the party's votes
+	return 0 and set the total votes to the voteCount parameter 
+
+
+===end of program===
+
+Test data:
+hasRightSyntax("R40TXD54CAr6Msd28nYL06UT") correctly formated poll data string given in the spec
+hasRightSyntax("40tx") no party code
+hasRightSyntax("") empty string
+hasRightSyntax("R40TBD54CAr6Msd28nYL06UT") invalid state
+hasRightSyntax("RDc") No state prediction
+computeVotes("R40TXD54CAr6Msd28nYL06UT", 'd' 999) valid function call from spec
+computeVotes("R40TXD54CAr6Msd28nYL06UT", 'D' 0) valid function call from spec with uppercase letter and different voteCount
+computeVotes("R0TX", 'D' 0) has 0 for a state prediction
+computeVotes("R00TX", 'D' 0) has 0 (2 zeros) for a state prediction
+computeVotes("R40TX", '#' 0) invalid party
+computeVotes("R40TB", '#' 0) invalid poll data string and party
+computeVotes("D54CA", '@', 777) invalid party, given test case in FAQ
+computeVotes("@54CA", 'R', 777) invalid poll data string, given test case in FAQ
+computeVotes("@54CA", '@', 777) invalid party and poll data string, given test case in FAQ
+computeVotes("", '@', 999) empty string and invalid party, given test case in FAQ
+computeVotes("", 'R', 999) empty string and valid party, given test case in FAQ
+

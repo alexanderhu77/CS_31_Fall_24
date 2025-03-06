@@ -1,0 +1,29 @@
+1) When the program asked "How many registered voters were surveyed? ", I input 999999999999. This caused the following response to output:
+How many of them say they will probably vote for Trarris? How many of them say they will probably vote for Hump?
+-40.0% say they will probably vote for Trarris.
+-40.0% say they will probably vote for Hump.
+Hump is predicted to win the election.
+
+This bahvaior was unexpected/unusual
+
+2)In logic_error.cpp, the error I introduced was switching the line "if (forTrarris > forHump)" into "if (forTrarris < forHump)." The change from the greater than sign to the less than sign reverses the result of the election from expected.
+
+The following is an example:
+How many registered voters were surveyed? 100
+How many of them say they will probably vote for Trarris? 60
+How many of them say they will probably vote for Hump? 30
+
+60.0% say they will probably vote for Trarris.
+30.0% say they will probably vote for Hump.
+Hump is predicted to win the election.
+
+3)I deleted "int" from line 9, and I also changed "cout" to "cou" in line 13. Both cause the program to not compile.
+
+The compiler gives the following errors:
+1>C:\CS31\Project_1\compile_error\compile_error\compile_error.cpp(9,2): error C2065: 'numberSurveyed': undeclared identifier
+1>C:\CS31\Project_1\compile_error\compile_error\compile_error.cpp(13,2): error C2065: 'cou': undeclared identifier
+1>C:\CS31\Project_1\compile_error\compile_error\compile_error.cpp(14,9): error C2065: 'numberSurveyed': undeclared identifier
+1>C:\CS31\Project_1\compile_error\compile_error\compile_error.cpp(20,43): error C2065: 'numberSurveyed': undeclared identifier
+1>C:\CS31\Project_1\compile_error\compile_error\compile_error.cpp(21,37): error C2065: 'numberSurveyed': undeclared identifier
+
+Both of these errors related to undeclared identifier. The type of numberSurveyed was not declared and cou does not come with the C++ standard library. THe compiler does not know how to handle them and gives errors.

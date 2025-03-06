@@ -1,0 +1,47 @@
+Some obstacles were making sure that the program was not accessing any elements outside of the arrays (undefined behavior) and making sure that the edge cases were properly thought through and accounted for.
+
+
+
+Test data:
+
+====Test data that was given in the spec====
+string h[7] = { "melania", "kamala", "donald", "tim", "", "doug", "jd" }; 
+assert(lookup(h, 7, "doug") == 5); see if lookup function works
+assert(lookup(h, 7, "donald") == 2); see if lookup function works on a different string
+assert(lookup(h, 2, "donald") == -1); see if function accounts for not being able to "see" the string it is looking for
+assert(positionOfMax(h, 7) == 3);
+
+string g[4] = { "melania", "kamala", "jd", "usha" };
+assert(differ(h, 4, g, 4) == 2); See if function can find the difference and return the index
+assert(appendToAll(g, 4, "?") == 4 && g[0] == "melania?" && g[3] == "usha?"); See if append works by making sure the ends of the array are correct
+assert(rotateLeft(g, 4, 1) == 1 && g[1] == "jd?" && g[3] == "kamala?"); See if the rotate left function works by making sure the ends of the array are correct
+
+string e[4] = { "donald", "tim", "", "doug" };
+assert(subsequence(h, 7, e, 4) == 2); see if the position of the subsequence is correctly returned
+
+string d[5] = { "kamala", "kamala", "kamala", "tim", "tim" };
+assert(countRuns(d, 5) == 2); see if the number of sequences are counter correctly
+
+string f[3] = { "jd", "donald", "gwen" }; 
+assert(lookupAny(h, 7, f, 3) == 2); see if the smallest position of an element in h that is also in f is returned
+assert(flip(f, 3) == 3 && f[0] == "gwen" && f[2] == "jd"); see if the array is correctly flipped by checking the ends
+
+assert(separate(h, 7, "jd") == 3); see if separate function returns the position of the element acting as the separator correctly
+====End of test data that was given in the spec====
+
+for (int i = 0; i < 7; i++) {
+	cerr << h[i] << endl;     This code is used to print out what is done after the separate function is called because there are mulitple correct solutions. Was removed from code after testing.
+}
+
+assert(appendToAll(g, -1, "?") == -1) Edge case with negative
+assert(appendToAll(g, 0, "?") == 0 && g[0] == "melania" && g[3] == "usha") Edge case with 0 (in the real code, this was added directly after the array g was initialize to avoid failing the assertion)
+assert(lookup(h, 0, "doug") == -1) Edge case with 0
+assert(lookup(h, 7, "dont exist") == -1); see if correctly handles if string does not exist in lookup
+assert(positionOfMax(h, 0) == -1); see if handles no max to be found
+assert(rotateLeft(g, 4, -1) == -1) Invalid position
+assert(rotateLeft(g, 0, 1) == -1) n=0 edge case
+assert(countRuns(g,0)==0) if no sequences existexist
+assert(flip(g,0)==0) if nothing to flip
+assert(subsequence(h, 2, g, 6)==-1) second size is larger than the first
+assert(lookupAny(g, 4, e, 4)==-1); no matching strings
+assert(separate(g,-1,"testing")==-1); invalid n 

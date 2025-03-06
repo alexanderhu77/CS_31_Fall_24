@@ -1,0 +1,19 @@
+Some obstacles that I faced were writing all the different if statements and making sure my comparisons were accurate. For example, it was easy to confuse < with <= or > with >=. 
+Also, figuring out how to account for the different schedule of charges based on different conditions was challenging. Many if statements were used for this.
+
+
+Some test data:
+Negative starting odometer (-1,100,3,test,n,10)
+Ending odometer reading is less than the starting reading (2,1,3,test,n,10)
+Negative rental days (1,2,-1,test,n,10)
+Empty string for customer name (1,2,1,,n,10)
+Luxury status is not y or n (1,2,1,test,r,10)
+Luxury status is capital Y (1,2,1,test,Y,10)
+Month number is below 1 (1,2,1,test,y,0)
+Month number is above 12 (1,2,1,test,y,13)
+Total miles below 100 (1,2,1,test,y,1)
+Total miles between 100 and 600 in Winter (1,500,3,test,n,3)
+Total miles between 100 and 600 not in Winter (1,500,3,test,n,4)
+Total miles above 600 (1,1000,6,test,y,5)
+Customer name has spaces in it (100,1200,9,A Customer,n,10)
+Final charge is a whole dollar (100,1200,9,test,n,10)

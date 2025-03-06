@@ -1,0 +1,197 @@
+===1a===
+int main()
+{
+    int arr[3] = { 5, 10, 15 };
+    int* ptr = arr;
+
+    *ptr = 30;          // set arr[0] to 30
+    *(ptr + 1) = 20;      // set arr[1] to 20
+    ptr += 2;
+    *ptr = 10;        // set arr[2] to 10
+
+    ptr = arr;
+    while (ptr < arr+3)
+    {
+        cout << *ptr << endl;    // print values
+        ptr++;
+        
+    }
+}
+
+===1b===
+
+The problem is that the pointer pToMax is passed by value, not by reference. 
+Any updates to pToMax inside the method findMax will not be reflected in ptr in main().
+The fix is to change the pToMax to pass by reference by adding a "&"
+
+#include <iostream>
+using namespace std;
+
+void findMax(int arr[], int n, int*& pToMax)
+{
+    if (n <= 0)
+        return;      // no items, no maximum!
+
+    pToMax = arr;
+
+    for (int i = 1; i < n; i++)
+    {
+        if (arr[i] > *pToMax)
+            pToMax = arr + i;
+    }
+}
+
+int main()
+{
+    int nums[4] = { 5, 3, 15, 6 };
+    int* ptr = &nums[0];
+
+    findMax(nums, 4, ptr);
+    cout << "The maximum is at address " << ptr << endl;
+    cout << "It's at position " << ptr - nums << endl;
+    cout << "Its value is " << *ptr << endl;
+}
+
+
+===1c===
+The issue is that the pointer ptr is unitialized.
+To fix this, we add another variable that ptr can point to and initialize it
+
+void computeCube(int n, int* ncubed)
+{
+    *ncubed = n * n * n;
+}
+
+int main()
+{
+    int ret;
+    int* ptr = &ret;
+    computeCube(5, ptr);
+    cout << "Five cubed is " << *ptr << endl;
+}
+
+
+
+===1d===
+The line "while (str1 != 0 && str2 != 0)" checks if str1 and str2 are null pointers, not the zero bytes at the end of cstrings
+The line "if (str1 != str2)" does not compare the characters, it compares if the pointers point to the same memory address
+The line "return str1 == str2;" does not check if both strings are equal, it checks if both pointers point to the same thing
+The fix is to add a "*" in these conditionals to follow the pointer and access the value stored at the memory location
+
+// return true if two C strings are equal
+bool strequal(const char str1[], const char str2[])
+{
+    while (*str1 != '\0' && *str2 != '\0')  // zero bytes at ends
+    {
+        if (*str1 != *str2)  // compare corresponding characters
+            return false;
+        str1++;            // advance to the next character
+        str2++;
+    }
+    return *str1 == *str2;   // both ended at same time?
+}
+
+int main()
+{
+    char a[15] = "Alex H.";
+    char b[15] = "Alex T.";
+
+    if (strequal(a, b))
+        cout << "They're the same person!\n";
+}
+
+===1e===
+The problem is that the program returns a pointer to local variable anArray, whose scope only exists within the getPtrToArray function. 
+In main(), when pointer ptr is assigned, the array no longer exists in memory because the getPtrToArray function exited, causing undefined behavior
+
+
+===2===
+a) double* cat;
+b) double mouse[5];
+c) cat = &mouse[4];
+d) *cat = 25;
+e) *(mouse + 3) = 42;
+f) cat -= 3;
+g) cat[1] = 17;
+h) cat[0] = 54;
+i) bool d = (cat == mouse);
+j) bool b = (*cat == *(cat + 1));
+
+
+===3a===
+
+double mean(const double* scores, int numScores)
+{
+    double tot = 0;
+    int i = 0;
+    while (i < numScores) 
+    {
+        tot += *(scores + i);
+        i++;
+    }
+    return tot / numScores;
+}
+
+
+
+===3b===
+
+const char* findTheChar(const char* str, char chr)
+{
+    for (int k = 0; *(str + k) != '\0'; k++)
+        if (*(str + k) == chr)
+            return (str + k);
+    
+    return nullptr;
+}
+
+
+===3c===
+
+const char* findTheChar(const char* str, char chr)
+{
+    for (; *str != '\0'; str++)
+        if (*str == chr)
+            return str;
+    
+    return nullptr;
+}
+
+
+===4===
+The output of the program is:
+3
+4
+79
+-1
+9
+22
+19
+
+Line by line:
+An array of ints and size 6 named "array" is declared in main and initialized to { 5, 3, 4, 17, 22, 19 }
+The maxwell function is called, which returns a pointer to the greater of array's elements in position 0 and position 2
+Since the 0th element of array (5) is greater than the 2nd (4), ptr is a pointer to the 0th element
+-1 is assigned to the 0th position
+the pointer ptr is moved 2 elements up to position 2
+the next element (position 3) is assigned to be 9
+Set the element in position 1 of array to 79 
+After the steps above, array = { -1, 79, 4, 9, 22, 19}
+The difference between the indices of 5 and ptr (index 2) is printed. 5-2=3
+swap1 is called but array is unaffected because the memory addresses each pointer is pointing to is swapped, but the actual values in array are not
+swap2 is called and values within the actual array are swapped. 0th and 2nd elements swapped so array = { 4, 79, -1, 9, 22, 19}
+A loop iterated through the array and prints out all elements, starting from position 0 and ending with 5
+
+===5===
+void removeS(char* str) {
+    char* write = str;
+    for (; *str != '\0'; str++) {
+        if (*str != 's' && *str != 'S') {
+            *write = *str;
+            write++;
+        }
+    }
+
+
+    *write = '\0';
+}

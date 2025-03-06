@@ -1,0 +1,30 @@
+Some obstacles that I overcame in my program were making sure that planets were not being double counted and setting up a program that ran multiple files.
+
+Pseudocode:
+
+====Start of Program===
+
+Function runOneRound
+	Check and return -1 for any invalid parameters
+	copy the word that needs to be guessed from the array of c-strings into a c-string named secret
+	Create a loop that keeps running until the word is guessed
+		prompt user to enter in a trial word
+		make sure word is valid or known, print error statement if needed
+		create an array of booleans to track for stars in planets
+		iterate through each string and compare for stars
+		Note which positions are stars in the array of booleans
+		Iterate through the strings again, checking for planets and making sure the characters are not paired in the array of booleans
+		if the guess is all stars, then end the round
+		print out approprate statements after each guess
+		
+Main Routine
+	Load the words into an array of cstrings
+	check for invalid varaibles
+	ask the user how many rounds to play
+	check if the rounds is positive
+	select a random word index in the array of c-strings
+	print out how many letters the word is
+	for each round, call runOneRound
+	at the end of each round, print out how many tries it took and calculate min, max, and average
+
+====End of Program===
